@@ -1,4 +1,4 @@
-package day01
+package main
 
 import (
 	"testing"
@@ -9,7 +9,7 @@ import (
 func TestExpense(t *testing.T) {
 	input := []int{1721, 979, 366, 299, 675, 1456}
 
-	actual := expense(input)
+	actual := Expense(input)
 
 	assert.Equal(t, actual, 514579)
 }
