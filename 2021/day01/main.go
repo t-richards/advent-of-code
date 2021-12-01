@@ -21,9 +21,31 @@ func main() {
 }
 
 func SolvePart1(input []int) int {
-	return -1
+	count := 0
+
+	for i := 1; i < len(input); i++ {
+		if input[i-1] < input[i] {
+			count++
+		}
+	}
+
+	return count
 }
 
 func SolvePart2(input []int) int {
-	return -1
+	count := 0
+	i := 3
+
+	for i < len(input) {
+		prevWindow := input[i-1] + input[i-2] + input[i-3]
+		currentWindow := input[i] + input[i-1] + input[i-2]
+
+		if prevWindow < currentWindow {
+			count++
+		}
+
+		i++
+	}
+
+	return count
 }
