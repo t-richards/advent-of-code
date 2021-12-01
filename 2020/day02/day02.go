@@ -17,6 +17,7 @@ func main() {
 	}
 
 	fmt.Println(ValidPasswords1(input))
+	fmt.Println(ValidPasswords2(input))
 }
 
 func parsePolicy(line string) (int, int, string, string) {
@@ -38,7 +39,28 @@ func ValidPasswords1(lines []string) int {
 		min, max, letter, password := parsePolicy(line)
 		count := strings.Count(password, letter)
 		if count >= min && count <= max {
-			result += 1
+			result++
+		}
+	}
+
+	return result
+}
+
+func ValidPasswords2(lines []string) int {
+	result := 0
+
+	for _, line := range lines {
+		found := 0
+		i, j, letter, password := parsePolicy(line)
+		if password[i-1] == letter[0] {
+			found += 1
+		}
+		if password[j-1] == letter[0] {
+			found += 1
+		}
+
+		if found == 1 {
+			result++
 		}
 	}
 

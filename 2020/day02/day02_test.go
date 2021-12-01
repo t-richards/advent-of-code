@@ -17,3 +17,15 @@ func TestValidPart1(t *testing.T) {
 
 	assert.Equal(t, 2, result)
 }
+
+func TestValidPart2(t *testing.T) {
+	input := []string{
+		"1-3 a: abcde",
+		"1-3 b: cdefg",
+		"2-9 c: ccccccccc",
+	}
+
+	result := ValidPasswords2(input)
+
+	assert.Equal(t, 1, result)
+}
