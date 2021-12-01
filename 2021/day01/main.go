@@ -34,17 +34,14 @@ func SolvePart1(input []int) int {
 
 func SolvePart2(input []int) int {
 	count := 0
-	i := 3
 
-	for i < len(input) {
+	for i := 3; i < len(input); i++ {
 		prevWindow := input[i-1] + input[i-2] + input[i-3]
 		currentWindow := input[i] + input[i-1] + input[i-2]
 
 		if prevWindow < currentWindow {
 			count++
 		}
-
-		i++
 	}
 
 	return count
