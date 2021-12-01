@@ -11,7 +11,7 @@ func TestPart1(t *testing.T) {
 
 	actual := ExpensePart1(input)
 
-	assert.Equal(t, actual, 514579)
+	assert.Equal(t, 514579, actual)
 }
 
 func TestPart2(t *testing.T) {
@@ -19,5 +19,5 @@ func TestPart2(t *testing.T) {
 
 	actual := ExpensePart2(input)
 
-	assert.Equal(t, actual, 241861950)
+	assert.Equal(t, 241861950, actual)
 }
