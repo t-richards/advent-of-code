@@ -39,13 +39,14 @@ func SolvePart1(input []string) int {
 
 	threshold := len(input) / 2
 	transposed := transpose(input)
+	transposedLen := len(transposed)
 
 	for i, line := range transposed {
 		num, _ := strconv.ParseUint(line, 2, 64)
 		if bits.OnesCount64(num) >= threshold {
-			gamma |= 1 << (len(transposed) - 1 - i)
+			gamma |= 1 << (transposedLen - 1 - i)
 		} else {
-			epsilon |= 1 << (len(transposed) - 1 - i)
+			epsilon |= 1 << (transposedLen - 1 - i)
 		}
 	}
 
