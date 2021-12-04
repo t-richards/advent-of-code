@@ -15,27 +15,7 @@ func main() {
 	fmt.Println(SolvePart2(input))
 }
 
-func PowerRates(input []string) (string, string) {
-	var gamma strings.Builder
-	var epsilon strings.Builder
-
-	threshold := len(input) / 2
-	transposed := conv.Transpose(input)
-
-	for _, line := range transposed {
-		if strings.Count(line, "1") >= threshold {
-			gamma.WriteRune('1')
-			epsilon.WriteRune('0')
-		} else {
-			epsilon.WriteRune('1')
-			gamma.WriteRune('0')
-		}
-	}
-
-	return gamma.String(), epsilon.String()
-}
-
-func LifeRates(input []string) ([]int, []int) {
+func popcount(input []string) ([]int, []int) {
 	zeroesCount := make([]int, len(input[0]))
 	onesCount := make([]int, len(input[0]))
 
@@ -69,9 +49,20 @@ func keep(s []string, idx int, r rune) []string {
 }
 
 func SolvePart1(input []string) int {
-	a, b := PowerRates(input)
-	gamma, _ := strconv.ParseInt(a, 2, 64)
-	epsilon, _ := strconv.ParseInt(b, 2, 64)
+	gamma := 0
+	epsilon := 0
+
+	threshold := len(input) / 2
+	transposed := conv.Transpose(input)
+	transposedLen := len(transposed)
+
+	for i, line := range transposed {
+		if strings.Count(line, "1") >= threshold {
+			gamma |= 1 << (transposedLen - 1 - i)
+		} else {
+			epsilon |= 1 << (transposedLen - 1 - i)
+		}
+	}
 
 	return int(gamma * epsilon)
 }
@@ -84,7 +75,7 @@ func SolvePart2(input []string) int {
 	copy(co2list, input)
 
 	for i := 0; i < columns; i++ {
-		zeroes, ones := LifeRates(oxylist)
+		zeroes, ones := popcount(oxylist)
 		if ones[i] >= zeroes[i] {
 			oxylist = keep(oxylist, i, '1')
 		} else {
@@ -93,7 +84,7 @@ func SolvePart2(input []string) int {
 	}
 
 	for i := 0; i < columns; i++ {
-		zeroes, ones := LifeRates(co2list)
+		zeroes, ones := popcount(co2list)
 		if zeroes[i] <= ones[i] {
 			co2list = keep(co2list, i, '0')
 		} else {
