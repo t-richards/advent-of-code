@@ -20,12 +20,6 @@ func main() {
 	fmt.Println(SolvePart2(input))
 }
 
-func toi2(input string) uint64 {
-	value, _ := strconv.ParseUint(input, 2, 64)
-
-	return value
-}
-
 func transpose(input []string) []string {
 	columnLen := len(input[0])
 	result := make([]string, columnLen)
@@ -47,7 +41,8 @@ func SolvePart1(input []string) int {
 	transposed := transpose(input)
 
 	for i, line := range transposed {
-		if bits.OnesCount64(toi2(line)) >= threshold {
+		num, _ := strconv.ParseUint(line, 2, 64)
+		if bits.OnesCount64(num) >= threshold {
 			gamma |= 1 << (len(transposed) - 1 - i)
 		} else {
 			epsilon |= 1 << (len(transposed) - 1 - i)
