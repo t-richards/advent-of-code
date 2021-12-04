@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math/bits"
 	"os"
 	"strconv"
-	"strings"
 )
 
 func main() {
@@ -20,36 +20,45 @@ func main() {
 	fmt.Println(SolvePart2(input))
 }
 
-// Janky string version, not sorry
-func SolvePart1(input []string) int {
-	var gamma strings.Builder
-	var epsilon strings.Builder
+func toi2(input string) int64 {
+	value, _ := strconv.ParseInt(input, 2, 64)
 
-	for col := 0; col < len(input[0]); col++ {
-		zeroCnt := 0
-		oneCnt := 0
+	return value
+}
 
+func transpose(input []string) []string {
+	columnLen := len(input[0])
+	result := make([]string, columnLen)
+
+	for col := 0; col < columnLen; col++ {
 		for row := 0; row < len(input); row++ {
-			if input[row][col] == '0' {
-				zeroCnt++
-			} else {
-				oneCnt++
-			}
-		}
-
-		if zeroCnt > oneCnt {
-			gamma.WriteRune('1')
-			epsilon.WriteRune('0')
-		} else {
-			gamma.WriteRune('0')
-			epsilon.WriteRune('1')
+			result[col] += string(input[row][col])
 		}
 	}
 
-	gam, _ := strconv.ParseInt(gamma.String(), 2, 64)
-	eps, _ := strconv.ParseInt(epsilon.String(), 2, 64)
+	return result
+}
 
-	return int(gam * eps)
+// Slightly janky string stuff here
+func SolvePart1(input []string) int64 {
+	gamma := ""
+	epsilon := ""
+
+	threshold := len(input) / 2
+	transposed := transpose(input)
+
+	for _, line := range transposed {
+		num := toi2(line)
+		if bits.OnesCount64(uint64(num)) >= threshold {
+			gamma += "1"
+			epsilon += "0"
+		} else {
+			gamma += "0"
+			epsilon += "1"
+		}
+	}
+
+	return toi2(gamma) * toi2(epsilon)
 }
 
 func SolvePart2(input []string) int64 {
