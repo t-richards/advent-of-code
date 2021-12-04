@@ -2,20 +2,13 @@ package main
 
 import (
 	"aoc/internal/conv"
-	"bufio"
+	"aoc/internal/data"
 	"fmt"
-	"math/bits"
-	"os"
-	"strconv"
+	"strings"
 )
 
 func main() {
-	var input []string
-
-	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
-		input = append(input, scanner.Text())
-	}
+	input := data.LoadStrings()
 
 	fmt.Println(SolvePart1(input))
 	fmt.Println(SolvePart2(input))
@@ -30,8 +23,7 @@ func SolvePart1(input []string) int {
 	transposedLen := len(transposed)
 
 	for i, line := range transposed {
-		num, _ := strconv.ParseUint(line, 2, 64)
-		if bits.OnesCount64(num) >= threshold {
+		if strings.Count(line, "0") >= threshold {
 			gamma |= 1 << (transposedLen - 1 - i)
 		} else {
 			epsilon |= 1 << (transposedLen - 1 - i)

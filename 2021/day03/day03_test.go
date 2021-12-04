@@ -21,6 +21,10 @@ var exampleInput = []string{
 	"01010",
 }
 
+func TestMain(t *testing.T) {
+	main()
+}
+
 func TestPart1(t *testing.T) {
 	actual := SolvePart1(exampleInput)
 
