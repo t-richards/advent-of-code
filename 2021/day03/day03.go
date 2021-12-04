@@ -20,8 +20,8 @@ func main() {
 	fmt.Println(SolvePart2(input))
 }
 
-func toi2(input string) int64 {
-	value, _ := strconv.ParseInt(input, 2, 64)
+func toi2(input string) uint64 {
+	value, _ := strconv.ParseUint(input, 2, 64)
 
 	return value
 }
@@ -39,26 +39,22 @@ func transpose(input []string) []string {
 	return result
 }
 
-// Slightly janky string stuff here
-func SolvePart1(input []string) int64 {
-	gamma := ""
-	epsilon := ""
+func SolvePart1(input []string) int {
+	gamma := 0
+	epsilon := 0
 
 	threshold := len(input) / 2
 	transposed := transpose(input)
 
-	for _, line := range transposed {
-		num := toi2(line)
-		if bits.OnesCount64(uint64(num)) >= threshold {
-			gamma += "1"
-			epsilon += "0"
+	for i, line := range transposed {
+		if bits.OnesCount64(toi2(line)) >= threshold {
+			gamma |= 1 << (len(transposed) - 1 - i)
 		} else {
-			gamma += "0"
-			epsilon += "1"
+			epsilon |= 1 << (len(transposed) - 1 - i)
 		}
 	}
 
-	return toi2(gamma) * toi2(epsilon)
+	return gamma * epsilon
 }
 
 func SolvePart2(input []string) int64 {

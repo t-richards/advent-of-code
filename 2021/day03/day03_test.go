@@ -24,7 +24,7 @@ var exampleInput = []string{
 func TestPart1(t *testing.T) {
 	actual := SolvePart1(exampleInput)
 
-	assert.Equal(t, int64(198), actual)
+	assert.Equal(t, 198, actual)
 }
 
 func TestPart2(t *testing.T) {
