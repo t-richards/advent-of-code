@@ -1,6 +1,7 @@
 package main
 
 import (
+	"aoc/internal/conv"
 	"bufio"
 	"fmt"
 	"math/bits"
@@ -20,26 +21,12 @@ func main() {
 	fmt.Println(SolvePart2(input))
 }
 
-func transpose(input []string) []string {
-	rowLen := len(input)
-	columnLen := len(input[0])
-	result := make([]string, columnLen)
-
-	for col := 0; col < columnLen; col++ {
-		for row := 0; row < rowLen; row++ {
-			result[col] += string(input[row][col])
-		}
-	}
-
-	return result
-}
-
 func SolvePart1(input []string) int {
 	gamma := 0
 	epsilon := 0
 
 	threshold := len(input) / 2
-	transposed := transpose(input)
+	transposed := conv.Transpose(input)
 	transposedLen := len(transposed)
 
 	for i, line := range transposed {
