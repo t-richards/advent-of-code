@@ -47,16 +47,12 @@ func (l line) points() []point {
 
 	dx, dy := l.slope()
 
-	for {
+	for x != l.p2.x+dx || y != l.p2.y+dy {
 		pt := point{x: x, y: y}
 		result = append(result, pt)
 
 		x += dx
 		y += dy
-
-		if x == l.p2.x+dx && y == l.p2.y+dy {
-			break
-		}
 	}
 
 	return result
