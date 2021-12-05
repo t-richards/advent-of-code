@@ -39,7 +39,7 @@ func (b *board) win() bool {
 				marked++
 			}
 
-			if marked == 5 {
+			if marked == size {
 				b.won = true
 				return true
 			}
@@ -54,7 +54,7 @@ func (b *board) win() bool {
 				marked++
 			}
 
-			if marked == 5 {
+			if marked == size {
 				b.won = true
 				return true
 			}
