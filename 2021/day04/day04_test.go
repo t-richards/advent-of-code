@@ -7,8 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const exampleInput = `
-7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
+const exampleInput = `7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 
 22 13 17 11  0
  8  2 23  4 24
@@ -35,4 +34,12 @@ func TestPart1(t *testing.T) {
 	result := SolvePart1(input)
 
 	assert.Equal(t, 4512, result)
+}
+
+func TestPart2(t *testing.T) {
+	input := strings.Split(exampleInput, "\n")
+
+	result := SolvePart2(input)
+
+	assert.Equal(t, 1924, result)
 }
