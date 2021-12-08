@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'rspec/autorun'
-require 'pry'
 
 EXAMPLE_INPUT = [
   '1-3 a: abcde',

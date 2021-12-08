@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'rspec/autorun'
-require 'pry'
 
 EXAMPLE_INPUT = [
   'be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe',
