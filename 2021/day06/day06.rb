@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'rspec/autorun'
-require 'pry'
 
 EXAMPLE_INPUT = [3, 4, 3, 1, 2].freeze
 
