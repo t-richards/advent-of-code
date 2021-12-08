@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
 
 require 'rspec/autorun'
 
@@ -20,7 +19,7 @@ def solve_part2(input)
 end
 
 def main
-  input = File.readlines(__dir__ + "/input.txt").map(&:to_i)
+  input = File.readlines("#{__dir__}/input.txt").map(&:to_i)
 
   puts solve_part1(input)
   puts solve_part2(input)
