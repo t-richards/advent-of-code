@@ -25,8 +25,38 @@ LEN_2_NUM = {
 
 P1_LENS = [2, 3, 4, 7].freeze
 
-def solve_part1(input)
-  input.sum do |line|
+def long_pattern(mapping, digit)
+  if digit.length == 5
+    # 3 shares 2 segments with 1
+    return 3 if digit.count(mapping.key(1)) == 2
+
+    # 5 shares 3 segments with 4
+    return 5 if digit.count(mapping.key(4)) == 3
+
+    # Final remaining pattern of length 5
+    return 2
+  end
+
+  # 9 shares 4 segments with 4
+  return 9 if digit.count(mapping.key(4)) == 4
+
+  # 0 shares 3 segments with 7
+  return 0 if digit.count(mapping.key(7)) == 3
+
+  # Final remaining pattern of length 6
+  6
+end
+
+def split_line(entry)
+  input, output = entry.split('|').map(&:split)
+  input = input.map { |w| w.chars.sort.join }
+  output = output.map { |w| w.chars.sort.join }
+
+  [input, output]
+end
+
+def solve_part1(entries)
+  entries.sum do |line|
     line
       .split('|')
       .last
@@ -35,14 +65,18 @@ def solve_part1(input)
   end
 end
 
-def solve_part2(input)
-  input.sum do |line|
-    input, output = line.split('|').map(&:split)
-    easy_nums = input.map { |w| LEN_2_NUM[w.length] }
-    mapping = input.zip(easy_nums).to_h
+def solve_part2(entries)
+  entries.sum do |entry|
+    input, output = split_line(entry)
 
-    # Now figure out the 5-length patterns...
-    binding.pry
+    # Handle easy numbers: 1, 4, 7, 8
+    easy_nums = input.map { |w| LEN_2_NUM[w.length] }
+    mapping = input.map.zip(easy_nums).to_h
+
+    # Remaining patterns all have lengths of 5 or 6
+    mapping.select { |_k, v| v.nil? }.each { |k, _v| mapping[k] = long_pattern(mapping, k) }
+
+    output.map { |w| mapping[w] }.join.to_i
   end
 end
 
@@ -53,7 +87,7 @@ def main
   puts solve_part2(input)
 end
 
-# main
+main
 
 RSpec.describe 'day08' do
   it 'works for the first example' do
@@ -65,6 +99,6 @@ RSpec.describe 'day08' do
   it 'works for the second example' do
     result = solve_part2(EXAMPLE_INPUT)
 
-    expect(result).to eq(5353)
+    expect(result).to eq(61_229)
   end
 end
